@@ -194,8 +194,8 @@ function dateHandler(e){
         }
     }
     // Add movies dynamically based on selected value (day)
-    // renderMovieCard(data, day.toLowerCase());
-    // console.log(day.toLowerCase());
+    renderMovieCard(data, day.toLowerCase());
+    console.log(day.toLowerCase());
 }
 
 
