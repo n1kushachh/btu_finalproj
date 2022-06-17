@@ -194,9 +194,30 @@ function dateHandler(e){
         }
     }
     // Add movies dynamically based on selected value (day)
-    console.log(day.toLowerCase());
+    // renderMovieCard(data, day.toLowerCase());
+    // console.log(day.toLowerCase());
 }
 
+
+function renderMovieCard(obj, day){
+    let div = document.createElement("div");
+    div.className = "movie-card";
+    let img = document.createElement("img");
+    img.className = "movie-img";
+    let h1 = document.createElement("h1");
+    h1.className = "movie-title";
+    div.appendChild(img);
+    div.appendChild(h1);
+
+    let moviesList = document.getElementById("movieslist");
+    
+    obj[0][day].map(oneMovie => {
+        let text = document.createTextNode(oneMovie.title);
+        h1.appendChild(text);
+        img.src = oneMovie.cover;      
+        moviesList.appendChild(div);  
+    })
+}
 
 
 
