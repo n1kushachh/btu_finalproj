@@ -168,37 +168,73 @@ function dateHandler(e){
     const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     // Array of weekend days
     const weekEnd = ["Saturday", "Sunday"];
-
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let dateString = e.target.value;
     // Get day(string) from input value
     let day = days[new Date(dateString).getDay()];
-    // Check if input value is weekday or weekend day , If weekday input time options should be from (10:00 - 18:00), If weekend input time options should be from (12:00 - 20:00)
+
+    // Checks if selected input(date) is weekday or not and sets relevant time for film sessions , 10:00 - 18:00 for Weekdays and 12:00 - 20:00 for Weekend(Saturday, Sunday)
     if(weekDays.includes(day)) {
         let values = ["10:00","12:00","14:00","16:00","18:00"];
-        for (const val of values) {
-            let option = document.createElement("option");
-            let select = document.getElementById("time");
-            option.value = val;
-            option.text = val;
-            select.appendChild(option);
+
+        //Add comment!!
+        let movieBoxDiv = document.querySelector(".movies-list");
+        let movieBoxDivChild = movieBoxDiv.lastElementChild;
+        if(movieBoxDivChild != "null"){
+            while(movieBoxDiv.firstChild){
+                movieBoxDiv.removeChild(movieBoxDiv.lastChild)
+            }
         }
+        renderMovieCard(data, day.toLowerCase());
+        for(const val of values) {
+            for(let i=0; i<document.getElementsByClassName("btn").length; i++){
+                document.getElementsByClassName("btn")[i].innerHTML += `
+                <button id="res-btn" class="reserve-button">${val}</button>
+                `
+            }
+        }
+        
+        let reserveButtons = document.getElementsByClassName("reserve-button");
+        for(const reserveButton of reserveButtons){
+            reserveButton.addEventListener("click", function onClick(){
+                if(reserveButton.style.background == "green"){
+                    reserveButton.style.background = "red"
+                } else {
+                    reserveButton.style.background = "green";
+                }
+    })
+}
     } else {
         let values = ["12:00","14:00","16:00","18:00","20:00"];
-        for (const val of values) {
-            let option = document.createElement("option");
-            let select = document.getElementById("time");
-            option.value = val;
-            option.text = val;
-            select.appendChild(option);
+
+        //Add comment!!
+        let movieBoxDiv = document.querySelector(".movies-list");
+        let movieBoxDivChild = movieBoxDiv.lastElementChild;
+        if(movieBoxDivChild != "null"){
+            while(movieBoxDiv.firstChild){
+                movieBoxDiv.removeChild(movieBoxDiv.lastChild)
+            }
         }
+        renderMovieCard(data, day.toLowerCase());
+        for(const val of values) {
+            for(let i=0; i<document.getElementsByClassName("btn").length; i++){
+                document.getElementsByClassName("btn")[i].innerHTML += `
+                <button id="res-btn" class="reserve-button">${val}</button>
+                `
+            }
+        }
+        // Reserve button addEventListener
+        let reserveButtons = document.getElementsByClassName("reserve-button");
+        for(const reserveButton of reserveButtons){
+            reserveButton.addEventListener("click", function onClick(){
+                reserveButton.style.background = "green";
+    })
+}
     }
-    // Add movies dynamically based on selected value (day)
-    renderMovieCard(data, day.toLowerCase());
     console.log(day.toLowerCase());
 }
 
-
+// Dynamically renders movieCard(title, image, id), used in dateHandler function
 function renderMovieCard(obj, day){
     let div = document.createElement("div");
     div.className = "movie-card";
@@ -212,12 +248,23 @@ function renderMovieCard(obj, day){
     let moviesList = document.getElementById("movieslist");
     
     obj[0][day].map(oneMovie => {
-        let text = document.createTextNode(oneMovie.title);
-        h1.appendChild(text);
-        img.src = oneMovie.cover;      
-        moviesList.appendChild(div);  
+        moviesList.innerHTML += `
+        <div class="movie-card" id=${oneMovie.id}>
+            <h1 class="movie-title">${oneMovie.title}</h1>
+            <img class="movie-img" src="${oneMovie.cover}">
+            <div class="btn" id="reserve-buttons"></div>
+        </div>
+        `
     })
 }
+
+
+
+
+
+
+
+
 
 
 

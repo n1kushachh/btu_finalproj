@@ -8,22 +8,18 @@
     <title>Ticket Reserve System</title>
 </head>
 <body>
-    <div class="main">
-        <h1>Reserve your theater ticket</h1>
-        <div class="date-time">
-            <div class="date-picker">
-                <label for="date">Pick Date: </label>
-                <input type="date" id="date" name="date" onchange="dateHandler(event)">
+        <div class="main">
+            <h1 class="title">Reserve your theater ticket</h1>
+            <div class="date-time">
+                <div class="date-picker">
+                    <label for="date">Pick Date: </label>
+                    <input type="date" id="date" name="date" onchange="dateHandler(event)">
+                </div>
             </div>
-            <div class="time-picker">
-                <label for="time">Pick Time: </label>
-                <select name="time" id="time">
+            <div class="movies-list" id="movieslist">
+
             </div>
         </div>
-        <div class="movieslist">
-            ajikaa
-        </div>
-    </div>
     <script src="app.js"></script>
 </body>
 </html>
