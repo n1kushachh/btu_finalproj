@@ -227,7 +227,11 @@ function dateHandler(e){
         let reserveButtons = document.getElementsByClassName("reserve-button");
         for(const reserveButton of reserveButtons){
             reserveButton.addEventListener("click", function onClick(){
-                reserveButton.style.background = "green";
+                if(reserveButton.style.background == "green"){
+                    reserveButton.style.background = "red"
+                } else {
+                    reserveButton.style.background = "green";
+                }
     })
 }
     }
