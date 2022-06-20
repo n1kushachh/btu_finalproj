@@ -189,7 +189,7 @@ function dateHandler(e){
         for(const val of values) {
             for(let i=0; i<document.getElementsByClassName("btn").length; i++){
                 document.getElementsByClassName("btn")[i].innerHTML += `
-                <button id="res-btn" class="reserve-button">${val}</button>
+                <button type="button" id="res-btn" class="reserve-button">${val}</button>
                 `
             }
         }
@@ -198,9 +198,10 @@ function dateHandler(e){
         for(const reserveButton of reserveButtons){
             reserveButton.addEventListener("click", function onClick(){
                 if(reserveButton.style.background == "green"){
-                    reserveButton.style.background = "red"
+                    reserveButton.style.background = "#efefef"
                 } else {
                     reserveButton.style.background = "green";
+                    console.log(reserveButton.innerHTML);
                 }
     })
 }
@@ -219,7 +220,7 @@ function dateHandler(e){
         for(const val of values) {
             for(let i=0; i<document.getElementsByClassName("btn").length; i++){
                 document.getElementsByClassName("btn")[i].innerHTML += `
-                <button id="res-btn" class="reserve-button">${val}</button>
+                <button type="button" id="res-btn" class="reserve-button">${val}</button>
                 `
             }
         }
@@ -228,7 +229,7 @@ function dateHandler(e){
         for(const reserveButton of reserveButtons){
             reserveButton.addEventListener("click", function onClick(){
                 if(reserveButton.style.background == "green"){
-                    reserveButton.style.background = "red"
+                    reserveButton.style.background = "#efefef"
                 } else {
                     reserveButton.style.background = "green";
                 }
@@ -254,13 +255,23 @@ function renderMovieCard(obj, day){
     obj[0][day].map(oneMovie => {
         moviesList.innerHTML += `
         <div class="movie-card" id=${oneMovie.id}>
-            <h1 class="movie-title">${oneMovie.title}</h1>
+            <h1 id="movie-title-id" class="movie-title">${oneMovie.title}</h1>
             <img class="movie-img" src="${oneMovie.cover}">
             <div class="btn" id="reserve-buttons"></div>
+            <button id="movie-${oneMovie.id}" type="submit" class="submit-reserve" id="submit-reserve-btn">Reserve ticket</button>
         </div>
         `
     })
 }
+
+
+
+
+
+
+
+
+
 
 
 
