@@ -162,6 +162,11 @@ const data = [{
     ],
 }];
 
+//Preparing info for localStorage
+let sessionDay;
+let movieId;
+let sessionTimes = [];
+
 
 function dateHandler(e){
     // Array of Week days
@@ -201,7 +206,7 @@ function dateHandler(e){
                     reserveButton.style.background = "#efefef"
                 } else {
                     reserveButton.style.background = "green";
-                    console.log(reserveButton.innerHTML);
+                    // console.log(reserveButton.innerHTML);
                 }
     })
 }
@@ -233,11 +238,36 @@ function dateHandler(e){
                 } else {
                     reserveButton.style.background = "green";
                 }
-    })
-}
+            })
+        }
     }
-    console.log(day.toLowerCase());
+    let selectedDay = day.toLowerCase();
+    sessionDay = selectedDay;
 }
+
+function buttonHandler(clicked_id){
+    //id of the movie
+    let idOfMovie = clicked_id.split("-")[1];
+    movieId = idOfMovie;
+    // now I want to check if any of the session time is clicked, if clicked save it on local storage.
+    let movieDiv = document.getElementById(idOfMovie);
+    let buttonsDiv = movieDiv.querySelectorAll(".btn button");
+
+    for(const oneButton of buttonsDiv){
+        if(oneButton.style.background == "green"){
+            oneButton.style.background = "red";
+            sessionTimes.push(oneButton.innerHTML);
+        }
+    }
+    let movieInfo = {
+        "sessionday": sessionDay,
+        "movieid" : movieId,
+        "sessiontime" : sessionTimes
+    }
+    storeToLocalStorage(movieInfo);
+    getFromLocalStorage(movieInfo);
+}
+
 
 // Dynamically renders movieCard(title, image, id), used in dateHandler function
 function renderMovieCard(obj, day){
@@ -258,11 +288,24 @@ function renderMovieCard(obj, day){
             <h1 id="movie-title-id" class="movie-title">${oneMovie.title}</h1>
             <img class="movie-img" src="${oneMovie.cover}">
             <div class="btn" id="reserve-buttons"></div>
-            <button id="movie-${oneMovie.id}" type="submit" class="submit-reserve" id="submit-reserve-btn">Reserve ticket</button>
+            <button id="movie-${oneMovie.id}" type="submit" class="submit-reserve" onclick="buttonHandler(this.id)" id="submit-reserve-btn">Reserve ticket</button>
         </div>
         `
     })
 }
+
+function storeToLocalStorage(obj) {
+    localStorage.setItem(`${obj}`, JSON.stringify(obj));
+ }
+
+function getFromLocalStorage(obj) {
+    let retrievedObject = localStorage.getItem(`${obj}`);
+    console.log(JSON.parse(retrievedObject))
+}
+
+
+
+
 
 
 
